@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Установим Node.js (часто нужен для hexlet-ci-app)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      # Если проект использует Python/Ruby — добавь сюда соответствующие setup-steps
+
+      # Запускаем ваши make-цели
+      - name: Setup
+        run: make setup
+
+      - name: Test
+        run: make test
+
+      - name: Lint
+        run: make lint
